@@ -13,7 +13,7 @@ export class AppController
 		return this.appService.root();
 	}
 
-	@Get( '/report' )
+	@Get( '/cube/report' )
 	report ( @Query() query )
 	{
 		return new Promise( ( resolve, reject ) =>
@@ -52,7 +52,7 @@ export class AppController
 	}
 		
 
-	@Post ('/payload')
+	@Post('/cube/payload')
 	async upload_payload (@Body () payload )
 	{
 		let db = this.connect_db()
