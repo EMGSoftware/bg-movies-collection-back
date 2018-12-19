@@ -57,16 +57,16 @@ export class AppController
 	{
 		let db = this.connect_db()
 		db.run( "CREATE TABLE IF NOT EXISTS data (macaddress text, dt date, power integer, reference text, received date, PRIMARY KEY (macaddress, dt, reference));" )
+		let received = new Date()
+		let timebase = received.toJSON().substring( 0, 16 ) + ":00.000Z"
 		for ( let client of payload.clients )
 		{
-			let received = new Date()
-			let timebase = received.toJSON().substring( 0, 16 ) + ":00.000Z"
-			db.run( `INSERT INTO data (macaddress, dt, power, reference, received) VALUES (?, ?, ?, ?, ?)`, [client.macaddress, timebase, client.power, payload.identity, received], ( err ) =>
+			db.run( `INSERT INTO data (macaddress, dt, power, reference, received) VALUES (?, ?, ?, ?, ?)`,
+				[client.macaddress, timebase, client.power, payload.identity, received], ( err ) =>
 			{
 				if (err) console.error (err)
 			} )	
 		}
-
 		db.close()
 		console.log("upload_payload")
 		return `OK ${JSON.stringify (payload)}`
