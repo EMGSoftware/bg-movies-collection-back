@@ -20,7 +20,7 @@ export class AppController
 		{
 			console.log( query )
 			let db = this.connect_db()
-			let sql = `SELECT dt, macaddress, power, reference FROM "data" WHERE dt BETWEEN ? AND ? ORDER BY dt, macaddress, reference, power DESC`
+			let sql = `SELECT dt, macaddress, power, reference, received FROM "data" WHERE dt BETWEEN ? AND ? ORDER BY dt, macaddress, reference, power DESC`
 			let results = []
 			let locations = []
 			let lastResult = null
@@ -42,7 +42,7 @@ export class AppController
 						lastResult = row.dt + row.macaddress
 						locations = []
 					}
-					locations.push( { reference: row.reference, power: row.power } )
+					locations.push( { reference: row.reference, power: row.power, received: row.received } )
 					lastDT = row.dt
 					lastMacaddress = row.macaddress
 				}
@@ -56,11 +56,12 @@ export class AppController
 	async upload_payload (@Body () payload )
 	{
 		let db = this.connect_db()
-		db.run( "CREATE TABLE IF NOT EXISTS data (macaddress text, dt date, power integer, reference text, PRIMARY KEY (macaddress, dt, reference));" )
+		db.run( "CREATE TABLE IF NOT EXISTS data (macaddress text, dt date, power integer, reference text, received date, PRIMARY KEY (macaddress, dt, reference));" )
 		for ( let client of payload.clients )
 		{
-			payload.dt = ( new Date() ).toJSON().substring( 0, 16 ) + ":00.000Z"
-			db.run( `INSERT INTO data (macaddress, dt, power, reference) VALUES (?, ?, ?, ?)`, [client.macaddress, payload.dt, client.power, payload.identity], ( err ) =>
+			let received = new Date()
+			let timebase = received.toJSON().substring( 0, 16 ) + ":00.000Z"
+			db.run( `INSERT INTO data (macaddress, dt, power, reference, received) VALUES (?, ?, ?, ?, ?)`, [client.macaddress, timebase, client.power, payload.identity, received], ( err ) =>
 			{
 				if (err) console.error (err)
 			} )	
