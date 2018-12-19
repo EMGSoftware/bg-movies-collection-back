@@ -20,7 +20,7 @@ export class AppController
 		{
 			console.log( query )
 			let db = this.connect_db()
-			let sql = `SELECT dt, macaddress, avg(power) as power, reference, COUNT(1) AS samples FROM "data" WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference ORDER BY dt, macaddress, reference, power DESC`
+			let sql = `SELECT dt, macaddress, avg(power) as power, reference, COUNT(1) AS samples, MAX(power) as max, MIN(power) as min FROM "data" WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference ORDER BY dt, macaddress, reference, power DESC`
 			let results = []
 			let locations = []
 			let lastResult = null
@@ -42,7 +42,7 @@ export class AppController
 						lastResult = row.dt + row.macaddress
 						locations = []
 					}
-					locations.push( { reference: row.reference, power: row.power, samples: row.samples } )
+					locations.push( { reference: row.reference, power: row.power, samples: row.samples, max: row.max, min: row.min } )
 					lastDT = row.dt
 					lastMacaddress = row.macaddress
 				}
