@@ -20,9 +20,9 @@ export class AppController
 		{
 			console.log( query )
 			let db = this.connect_db()
-			let sql = `SELECT dt, macaddress, avg(power) as power, reference, COUNT(1) AS samples, MAX(power) as max, MIN(power) as min FROM "data" WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference ORDER BY dt, macaddress, reference, power DESC`
+			let sql = `SELECT dt, macaddress, avg(power) AS power, reference, COUNT(1) AS samples, MAX(power) AS max, MIN(power) AS min, R.x, R.y, R.name FROM "data" AS D INNER JOIN "references" AS R ON D.reference = R.identity WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference ORDER BY dt, macaddress, reference, power DESC`
 			let results = []
-			let locations = []
+			let measurements = []
 			let lastResult = null
 			let lastDT = null
 			let lastMacaddress = null
@@ -38,11 +38,11 @@ export class AppController
 					if ( lastResult == null ) lastResult = row.dt + row.macaddress
 					if ( lastResult != row.dt + row.macaddress )
 					{
-						results.push( { dt: lastDT, macaddress: lastMacaddress, locations: locations } )
+						results.push( { dt: lastDT, macaddress: lastMacaddress, measurements: measurements } )
 						lastResult = row.dt + row.macaddress
-						locations = []
+						measurements = []
 					}
-					locations.push( { reference: row.reference, power: row.power, samples: row.samples, max: row.max, min: row.min } )
+					measurements.push( { reference: { name: row.name, x: row.x, y: row.y }, avg_power: row.power, samples: row.samples, max: row.max, min: row.min } )
 					lastDT = row.dt
 					lastMacaddress = row.macaddress
 				}
