@@ -20,7 +20,7 @@ export class AppController
 		{
 			console.log( query )
 			let db = this.connect_db()
-			let sql = `SELECT dt, macaddress, avg(power) AS power, reference, COUNT(1) AS samples, MAX(power) AS max, MIN(power) AS min, R.x, R.y, R.name FROM "data" AS D INNER JOIN "references" AS R ON D.reference = R.identity WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference ORDER BY dt, macaddress, reference, power DESC`
+			let sql = `SELECT dt, macaddress, avg(power) AS power, reference, COUNT(1) AS samples, MAX(power) AS max, MIN(power) AS min, R.x, R.y, R.name FROM "data" AS D INNER JOIN "references" AS R ON D.reference = R.identity WHERE dt BETWEEN ? AND ? GROUP BY dt, macaddress, reference HAVING COUNT(1) > 1 ORDER BY dt, macaddress, reference, power DESC`
 			let results = []
 			let measurements = []
 			let lastResult = null
