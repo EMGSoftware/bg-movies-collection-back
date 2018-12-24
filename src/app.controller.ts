@@ -38,10 +38,7 @@ export class AppController
 					if ( lastResult == null ) lastResult = row.dt + row.macaddress
 					if ( lastResult != row.dt + row.macaddress )
 					{
-						if ( measurements.length > 1 )
-						{
-							results.push( { dt: lastDT, macaddress: lastMacaddress, measurements: measurements } )
-						}
+						results.push( { dt: lastDT, macaddress: lastMacaddress, measurements: measurements } )
 						lastResult = row.dt + row.macaddress
 						measurements = []
 					}
