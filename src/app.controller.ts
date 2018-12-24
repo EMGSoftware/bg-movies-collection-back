@@ -41,9 +41,9 @@ export class AppController
 						if ( measurements.length > 1 )
 						{
 							results.push( { dt: lastDT, macaddress: lastMacaddress, measurements: measurements } )
-							lastResult = row.dt + row.macaddress
-							measurements = []	
 						}
+						lastResult = row.dt + row.macaddress
+						measurements = []
 					}
 					measurements.push( { reference: { name: row.name, x: row.x, y: row.y }, avg_power: row.power, samples: row.samples, max: row.max, min: row.min } )
 					lastDT = row.dt
