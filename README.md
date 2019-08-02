@@ -1,82 +1,42 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Movies Collection
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## General Information:
 
-## Description
+The solution is composed of two projects: A front-end application made with Angular and a simple back-end application made with NestJS.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### The Front-end
 
-## Installation
+The main page shows a list of movies where users can filter by one or more genres (Action, Comedy, etc.) and search for films just typing part of their names or descriptions.
+Under the movie title is the genre list. Clicking on one of the genres, toggles that specific genre and filters the movies list.
+Below the movie's cover there is a button named "More Details" that navigates to a page with some more information about that movie, including a short synopsis, rating and duration.
 
-```bash
-$ npm install
-```
+#### Technologies used
 
-## Running the app
+- **Angular 8**
+  - Angular Material
+  - Angular Flex Layout
+  - Angular Animations
+  - RxJS
+  - SASS
+  - Lazy & Eager  Loading
+- **Akita** for state management
 
-```bash
-# development
-$ npm run start
+### The Back-end
 
-# watch mode
-$ npm run start:dev
+Made with the amazing [NestJS](http://nestjs.com/) framework (heavily inspired from Angular), it provides both the front-end build artifacts and the API endpoints needed to get the list of movies and cover images.
 
-# incremental rebuild (webpack)
-$ npm run webpack
-$ npm run start:hmr
 
-# production mode
-$ npm run start:prod
-```
+> **You can road-test the full solution right now, kindly hosted by Heroku at [https://bg-moviescollection.herokuapp.com](https://bg-moviescollection.herokuapp.com)**
 
-## Test
+## Installation:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
-
-  
-  
+- _`Git-clone`_ both repositories at Github:
+  - [Front-end](https://github.com/EMGSoftware/bg-movies-collection-front)
+  - [Back-end](https://github.com/EMGSoftware/bg-movies-collection-back)
+- _`NPM-install`_ them
+- _`NPM-run-start`_ each one.
+- And we are ready to go!
+> By default the back-end is listening at port 3000 and the Front-end is listening at port 4200. You can run the application at http://localhost:4200
+> 
+> Running locally Angular will serve it's own build artifacts with _ng serve_ at port 4200 and the back-end will just serve the API at port 3000. 
+> If you prefer the back-end to serve the full solution locally, you need to do a `ng build` in the front-end installation folder and copy the contents of `[front-end folder]/dist/movie-showcase` to `[back-end folder]/front`. After doing that you can access the application normally at http://localhost:3000. The Heroku deployment is configured that way. 
