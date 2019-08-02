@@ -9,6 +9,7 @@ const allowedExt = [
 	'.png',
 	'.jpg',
 	'.woff2',
+	'.gif',
 	'.woff',
 	'.ttf',
 	'.svg',
